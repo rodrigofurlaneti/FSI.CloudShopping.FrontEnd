@@ -1,8 +1,10 @@
 ﻿import { useState } from 'react';
 import { RegisterModal } from '../../api/features/catalog/components/RegisterModal';
+import { LoginModal } from '../../api/features/catalog/components/LoginModal'; // [Novo Ajuste]
 
 export const Header = () => {
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+    const [isLoginOpen, setIsLoginOpen] = useState(false); // [Novo Ajuste] para gerenciar o login
 
     return (
         <>
@@ -20,12 +22,25 @@ export const Header = () => {
                     </div>
 
                     <div className="flex items-center gap-6 text-sm font-semibold">
-                        <div
-                            className="hidden lg:block leading-tight cursor-pointer group text-left"
-                            onClick={() => setIsRegisterOpen(true)}
-                        >
-                            olá, faça seu login <br />
-                            <span className="text-[11px] font-normal group-hover:underline">ou cadastre-se</span>
+                        <div className="hidden lg:block leading-tight cursor-pointer group text-left">
+                            {/* [Novo Ajuste]: Agora o clique no texto principal abre o Login */}
+                            <span
+                                onClick={() => setIsLoginOpen(true)}
+                                className="hover:text-gray-200 transition-colors"
+                            >
+                                olá, faça seu login
+                            </span>
+                            <br />
+                            {/* [Novo Ajuste]: Clique apenas no 'ou cadastre-se' abre o Registro */}
+                            <span
+                                className="text-[11px] font-normal group-hover:underline"
+                                onClick={(e) => {
+                                    e.stopPropagation(); 
+                                    setIsRegisterOpen(true);
+                                }}
+                            >
+                                ou cadastre-se
+                            </span>
                         </div>
 
                         <div className="relative cursor-pointer text-2xl">
@@ -38,6 +53,11 @@ export const Header = () => {
             <RegisterModal
                 isOpen={isRegisterOpen}
                 onClose={() => setIsRegisterOpen(false)}
+            />
+
+            <LoginModal
+                isOpen={isLoginOpen}
+                onClose={() => setIsLoginOpen(false)}
             />
         </>
     );
