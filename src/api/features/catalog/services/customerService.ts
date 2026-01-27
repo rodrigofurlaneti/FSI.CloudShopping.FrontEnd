@@ -1,8 +1,16 @@
 import apiClient from '../../../apiClient';
 
+export interface DeviceInfoDto {
+    userAgent: string;
+    platform: string;
+    language: string;
+    timeZone: string;
+}
+
 export interface CreateGuestRequest {
     latitude?: number;
     longitude?: number;
+    deviceInfo: DeviceInfoDto;
 }
 
 export interface CreateGuestResponse {

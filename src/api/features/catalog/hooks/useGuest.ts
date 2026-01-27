@@ -3,16 +3,20 @@ import { customerService } from '../services/customerService';
 
 const SESSION_TOKEN_KEY = 'session_token';
 
+const getDeviceInfo = () => ({
+    userAgent: navigator.userAgent,
+    platform: navigator.platform,
+    language: navigator.language,
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+});
+
 export const useGuest = () => {
     useEffect(() => {
         const existingToken = localStorage.getItem(SESSION_TOKEN_KEY);
-
-        // 🔒 Já tem sessão → não faz nada
         if (existingToken) return;
 
-        // 🌍 Pegar geolocalização
         if (!navigator.geolocation) {
-            createGuest(); // fallback sem geo
+            createGuest();
             return;
         }
 
@@ -35,14 +39,17 @@ export const useGuest = () => {
 
     const createGuest = async (latitude?: number, longitude?: number) => {
         try {
-            const response = await customerService.createGuest({
+            const deviceInfo = getDeviceInfo();
+            const payload = {
                 latitude,
-                longitude
-            });
-
+                longitude,
+                deviceInfo
+            };
+            const response = await customerService.createGuest(payload);
             localStorage.setItem(SESSION_TOKEN_KEY, response.sessionToken);
         } catch (error) {
             console.error('Erro ao criar Guest', error);
         }
     };
+
 };
