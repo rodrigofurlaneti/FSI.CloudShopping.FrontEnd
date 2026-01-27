@@ -1,18 +1,19 @@
 ﻿import type { Product } from '../services/productService';
 
 export const useProduct = (product: Product) => {
-    // Formatação de preço centralizada
+    // Formatação de preço: R$ 4.500,00
     const formattedPrice = product.price.toLocaleString('pt-BR', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     });
 
-    // Lógica para imagem reserva (Fallback)
+    // Se a API não trouxer imagem, gera uma imagem aleatória baseada no ID
+    const displayImage = product.imageUrl || `https://picsum.photos/seed/${product.id}/400/400`;
+
     const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         e.currentTarget.src = 'https://via.placeholder.com/200?text=Sem+Foto';
     };
 
-    // Exemplo de lógica futura: Cálculo de parcelas
     const installmentValue = (product.price / 10).toLocaleString('pt-BR', {
         style: 'currency',
         currency: 'BRL'
@@ -21,6 +22,7 @@ export const useProduct = (product: Product) => {
     return {
         formattedPrice,
         installmentValue,
-        handleImageError
+        handleImageError,
+        displayImage
     };
 };

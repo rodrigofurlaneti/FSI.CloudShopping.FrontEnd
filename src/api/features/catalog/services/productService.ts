@@ -1,25 +1,28 @@
 import apiClient from '../../../apiClient';
 
 export interface Product {
-    id: string;
+    id: number;
+    sku: string;
     name: string;
     description: string;
     price: number;
-    originalPrice?: number;
-    imageUrl: string;
-    isTopOffer: boolean;
-    installments: number;
+    stockQuantity: number;
+    categoryId: number;
+    isActive: boolean;
+    imageUrl?: string; // Campo opcional se a API não enviar
+    isTopOffer?: boolean;
 }
 
 export interface RegisterLeadDTO {
     customerId: number;
     email: string;
-    password?: string; 
+    password?: string;
 }
 
 export const productService = {
     getAll: async (): Promise<Product[]> => {
-        const { data } = await apiClient.get<Product[]>('/products');
+        // A rota deve ser exatamente como no seu curl: /Products
+        const { data } = await apiClient.get<Product[]>('/Products');
         return data;
     },
     registerLead: async (userData: RegisterLeadDTO) => {
