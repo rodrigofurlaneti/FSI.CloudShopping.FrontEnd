@@ -58,7 +58,6 @@ FSI.CloudShopping.FrontEnd-main/
 ├── tailwind.config.js # Configuração Tailwind
 ├── postcss.config.js
 └── eslint.config.js # Regras de qualidade de código
-
 ---
 
 ### 📂 Explicação das Principais Camadas
