@@ -101,7 +101,7 @@ Contém componentes reutilizáveis em toda aplicação, como:
 
 ### **1️⃣ Clonar o repositório**
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/rodrigofurlaneti/FSI.CloudShopping.FrontEnd
 cd FSI.CloudShopping.FrontEnd-main
 npm install
 npm run build
