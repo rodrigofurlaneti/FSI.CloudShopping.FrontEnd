@@ -22,42 +22,45 @@ Este front-end foi criado para:
 
 ---
 
-## 🏗️ Estrutura do Projeto
+## 🏗️ Estrutura do Projeto (Mermaid)
 
-Abaixo está a estrutura principal do repositório e sua finalidade:
+Abaixo está a estrutura principal do repositório representada em **Mermaid.js**, compatível com GitHub:
 
-FSI.CloudShopping.FrontEnd-main/
-│
-├── public/ # Arquivos públicos estáticos
-├── src/ # Código-fonte principal
-│ ├── api/ # Camada de comunicação com backend
-│ │ ├── apiClient.ts # Cliente Axios configurado
-│ │ ├── types.ts # Tipos globais da API
-│ │ └── features/
-│ │ └── catalog/ # Feature de catálogo
-│ │ ├── ProductList.tsx
-│ │ ├── components/
-│ │ ├── hooks/
-│ │ └── services/
-│ │
-│ ├── shared/ # Componentes compartilhados
-│ │ └── components/
-│ │ └── Header.tsx
-│ │
-│ ├── App.tsx # Componente raiz
-│ ├── main.tsx # Ponto de entrada do React
-│ ├── App.css
-│ └── index.css
-│
-├── package.json # Dependências e scripts
-├── package-lock.json
-├── vite.config.ts # Configuração do Vite
-├── tsconfig.json # Configuração TypeScript base
-├── tsconfig.app.json
-├── tsconfig.node.json
-├── tailwind.config.js # Configuração Tailwind
-├── postcss.config.js
-└── eslint.config.js # Regras de qualidade de código
+```mermaid
+graph TD
+    A[FSI.CloudShopping.FrontEnd-main] --> B[public]
+    A --> C[src]
+    A --> D[package.json]
+    A --> E[package-lock.json]
+    A --> F[vite.config.ts]
+    A --> G[tsconfig.json]
+    A --> H[tsconfig.app.json]
+    A --> I[tsconfig.node.json]
+    A --> J[tailwind.config.js]
+    A --> K[postcss.config.js]
+    A --> L[eslint.config.js]
+
+    C --> C1[api]
+    C --> C2[shared]
+    C --> C3[App.tsx]
+    C --> C4[main.tsx]
+    C --> C5[App.css]
+    C --> C6[index.css]
+
+    C1 --> C1A[apiClient.ts]
+    C1 --> C1B[types.ts]
+    C1 --> C1C[features]
+
+    C1C --> C1C1[catalog]
+    C1C1 --> C1C1A[ProductList.tsx]
+    C1C1 --> C1C1B[components]
+    C1C1 --> C1C1C[hooks]
+    C1C1 --> C1C1D[services]
+
+    C2 --> C2A[components]
+    C2A --> C2A1[Header.tsx]
+```
+
 ---
 
 ### 📂 Explicação das Principais Camadas
