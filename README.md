@@ -59,6 +59,7 @@ FSI.CloudShopping.FrontEnd-main/
 ├── postcss.config.js
 └── eslint.config.js # Regras de qualidade de código
 
+---
 
 ### 📂 Explicação das Principais Camadas
 
