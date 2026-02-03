@@ -1,15 +1,19 @@
 ﻿import { Header } from './shared/components/Header';
 import { ProductList } from './api/features/catalog/ProductList';
 import { useGuest } from './api/features/catalog/hooks/useGuest';
+import { CartDrawer } from './api/features/catalog/components/CartDrawer';
 
 export default function App() {
-    useGuest(); // 👈 dispara automaticamente no load
+    useGuest(); // dispara automaticamente no load
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-100 relative"> {/* 🔹 IMPORTANTE: relative para o drawer */}
+
             <Header />
+            <CartDrawer />
 
             <main className="max-w-7xl mx-auto px-4 py-8">
+
                 {/* Banner */}
                 <div className="bg-white rounded-xl shadow-sm border-2 border-yellow-400 p-6 mb-10 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
                     <div className="flex items-center gap-6">

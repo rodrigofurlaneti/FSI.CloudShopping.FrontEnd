@@ -1,8 +1,10 @@
 ﻿import { useState } from 'react';
 import { RegisterModal } from '../../api/features/catalog/components/RegisterModal';
 import { LoginModal } from '../../api/features/catalog/components/LoginModal'; // [Novo Ajuste]
+import { useCart } from '../../contexts/CartContext';
 
 export const Header = () => {
+    const { totalItems, toggleDrawer } = useCart();
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
     const [isLoginOpen, setIsLoginOpen] = useState(false); // [Novo Ajuste] para gerenciar o login
 
@@ -42,9 +44,13 @@ export const Header = () => {
                                 ou cadastre-se
                             </span>
                         </div>
-
-                        <div className="relative cursor-pointer text-2xl">
-                            🛒 <span className="absolute -top-1 -right-2 bg-yellow-400 text-red-700 text-[10px] font-bold px-1.5 rounded-full border border-red-600">0</span>
+                        <div
+                            className="relative cursor-pointer text-2xl"
+                            onClick={() => toggleDrawer(true)}>
+                            🛒
+                            <span className="absolute -top-1 -right-2 bg-yellow-400 text-red-700 text-[10px] font-bold px-1.5 rounded-full border border-red-600">
+                                {totalItems}
+                            </span>
                         </div>
                     </div>
                 </div>
