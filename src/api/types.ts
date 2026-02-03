@@ -11,3 +11,17 @@ export interface Product {
     isTopOffer?: boolean;
     installments?: number;
 }
+
+export interface CartItemDTO {
+    productId: number;
+    quantity: number;
+    unitPrice: number;
+    subTotal: number;
+}
+
+export interface CartDTO {
+    id: number;
+    customerId: number;
+    total: number;
+    items: CartItemDTO[];
+}
