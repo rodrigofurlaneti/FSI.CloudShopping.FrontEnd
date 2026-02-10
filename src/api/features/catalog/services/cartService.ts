@@ -17,16 +17,40 @@ export const cartService = {
             });
 
             return response.data;
-        } catch (error: unknown) { // 👈 Mudamos de 'any' para 'unknown'
+        } catch (error: unknown) {
             let message = 'Erro inesperado ao adicionar ao carrinho';
 
-            // Verificação segura do erro para satisfazer o TypeScript
             if (error instanceof Error) {
                 message = error.message;
             }
 
             console.error('Erro no CartService:', message);
             throw new Error(message);
+        }
+    },
+
+    async getCartByToken() {
+        const token = localStorage.getItem('session_token');
+        if (!token) return null;
+
+        try {
+            const response = await apiClient.get(`/carts/${token}`);
+            return response.data;
+        } catch (error: unknown) {
+            console.error('Erro ao buscar carrinho:', error);
+            return null;
+        }
+    },
+
+    async clearCart() {
+        const token = localStorage.getItem('session_token');
+        if (!token) return;
+
+        try {
+            await apiClient.delete(`/carts/clear/${token}`);
+            localStorage.removeItem('session_token');
+        } catch (error: unknown) {
+            console.error('Erro ao limpar carrinho:', error);
         }
     }
 };

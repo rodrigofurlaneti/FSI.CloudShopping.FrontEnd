@@ -82,7 +82,7 @@ export const Header = () => {
                                     </span>
                                 )}
                             </div>
-                            <span className="text-[10px] font-bold uppercase mt-[-2px]">Cesta</span>
+                            <span id="shoppingBasket" className="text-[10px] font-bold uppercase mt-[-2px]">Cesta</span>
                         </div>
                     </div>
                 </div>

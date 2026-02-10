@@ -2,7 +2,7 @@
 import Swal from 'sweetalert2';
 import type { Product } from '../services/productService';
 import { useProduct } from '../hooks/useProduct';
-import { cartService } from '../services/cartService';
+import { useCart } from '../../../../contexts/CartContext';
 
 interface ProductCardProps {
     product: Product;
@@ -12,9 +12,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     const [isAdding, setIsAdding] = useState(false);
     const { formattedPrice, handleImageError, displayImage, installmentValue } = useProduct(product);
 
-    // Cor padrão do tema para reuso
-    const THEME_COLOR = '#e60014';
+    // Utilizamos o método addToCart do contexto global
+    const { addToCart } = useCart();
 
+    const THEME_COLOR = '#e60014';
     const isTopOffer = product.price > 1000;
 
     const handleAddToCart = async (e: React.MouseEvent) => {
@@ -22,7 +23,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
         setIsAdding(true);
         try {
-            await cartService.addItem(product.id, 1);
+            // Esta função já executa o addItem e o refreshCart internamente
+            await addToCart(product.id, 1);
 
             await Swal.fire({
                 title: 'boa escolha!',
@@ -58,7 +60,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     return (
         <div className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col group cursor-pointer border border-gray-100 hover:border-red-200 text-left h-full">
 
-            {/* TAG DE OFERTA: Estilo Americanas */}
+            {/* TAG DE OFERTA */}
             <div className="h-[28px] mb-2">
                 {isTopOffer && (
                     <span className="bg-[#e60014] text-white text-[9px] font-black px-2 py-1 rounded-sm uppercase flex items-center gap-1 w-fit">
