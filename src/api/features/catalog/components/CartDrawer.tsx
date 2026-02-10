@@ -1,14 +1,22 @@
-﻿import { useCart } from "../../../../contexts/CartContext";
+﻿import { useNavigate } from "react-router-dom";
+import { useCart } from "../../../../contexts/CartContext";
 import type { CartItemDTO } from '../../../../contexts/CartContext';
 
 export const CartDrawer = () => {
     const { cart, isDrawerOpen, toggleDrawer, updateQuantity, removeItem } = useCart();
+    const navigate = useNavigate();
 
     const total = cart?.items.reduce((acc, item) => acc + (item.unitPrice * item.quantity), 0) || 0;
     const subtotalFicticio = total * 1.15;
 
+    const handleContinueToCheckout = () => {
+        toggleDrawer(false); // Fecha o drawer lateral
+        navigate('/checkout'); // Navega para a rota de checkout
+    };
+
     return (
         <>
+            {/* OVERLAY */}
             {isDrawerOpen && (
                 <div
                     className="fixed inset-0 bg-black/40 z-40 transition-opacity"
@@ -16,6 +24,7 @@ export const CartDrawer = () => {
                 />
             )}
 
+            {/* DRAWER CONTAINER */}
             <div
                 className={`fixed top-0 right-0 h-full w-full max-w-[400px] bg-[#f4f4f4] shadow-2xl transform transition-transform duration-300 z-50 flex flex-col
                 ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}`}
@@ -50,8 +59,6 @@ export const CartDrawer = () => {
 
                                 <div className="w-20 h-20 flex-shrink-0 border border-gray-100 rounded p-1 flex items-center justify-center overflow-hidden bg-white">
                                     <img
-                                        // APONTANDO PARA O FRONT-END:
-                                        // Usamos o caminho relativo puro, pois o Vite servirá a pasta public na raiz.
                                         src={item.imageUrl || `https://via.placeholder.com/200?text=Sem+Foto`}
                                         className="max-w-full max-h-full object-contain"
                                         alt={item.name}
@@ -116,7 +123,12 @@ export const CartDrawer = () => {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <button className="w-full bg-[#e60014] hover:bg-[#c40011] text-white py-4 rounded-md font-bold text-sm uppercase shadow-sm active:scale-95 transition-transform">
+                        <button
+                            id="continue"
+                            name="continue"
+                            onClick={handleContinueToCheckout}
+                            className="w-full bg-[#e60014] hover:bg-[#c40011] text-white py-4 rounded-md font-bold text-sm uppercase shadow-sm active:scale-95 transition-transform"
+                        >
                             continuar
                         </button>
                         <button
