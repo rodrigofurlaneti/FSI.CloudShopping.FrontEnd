@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-//const baseURLLocalHost = import.meta.env.VITE_API_URL || 'https://localhost:7003/api';
+//const rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:5229/api';
 const rawBaseURL = import.meta.env.VITE_API_URL || 'https://fsi-cloudshopping-backend.onrender.com/api';
 export const baseURL = rawBaseURL.endsWith('/') ? rawBaseURL.slice(0, -1) : rawBaseURL;
 
