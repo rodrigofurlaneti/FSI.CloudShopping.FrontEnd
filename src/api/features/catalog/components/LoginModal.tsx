@@ -6,7 +6,8 @@ interface Props {
 }
 
 export const LoginModal = ({ isOpen, onClose }: Props) => {
-    const { formData, setters, handleSubmit, isPending } = useLogin(onClose);
+    // Adicionamos o handleForgotPassword aqui na desestruturação
+    const { formData, setters, handleSubmit, handleForgotPassword, isPending } = useLogin(onClose);
 
     if (!isOpen) return null;
 
@@ -19,6 +20,7 @@ export const LoginModal = ({ isOpen, onClose }: Props) => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* CAMPO DE E-MAIL */}
                     <div className="group">
                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest group-focus-within:text-red-500 transition-colors">e-mail</label>
                         <input
@@ -31,6 +33,7 @@ export const LoginModal = ({ isOpen, onClose }: Props) => {
                         />
                     </div>
 
+                    {/* CAMPO DE SENHA */}
                     <div className="group">
                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest group-focus-within:text-red-500 transition-colors">senha</label>
                         <input
@@ -41,14 +44,26 @@ export const LoginModal = ({ isOpen, onClose }: Props) => {
                             value={formData.password}
                             onChange={(e) => setters.setPassword(e.target.value)}
                         />
+                        
+                        {/* LINK ESQUECI MINHA SENHA */}
+                        <div className="flex justify-end mt-1">
+                            <button 
+                                type="button" 
+                                onClick={handleForgotPassword}
+                                className="text-[10px] font-bold text-gray-400 hover:text-red-500 uppercase tracking-tight transition-colors"
+                            >
+                                Esqueci minha senha
+                            </button>
+                        </div>
                     </div>
 
+                    {/* BOTÃO DE SUBMIT */}
                     <button
                         type="submit"
                         disabled={isPending}
                         className="w-full bg-[#ff0033] text-white py-4 rounded-lg font-black italic uppercase tracking-tighter hover:bg-red-700 transition-all disabled:bg-gray-300 shadow-lg shadow-red-100 mt-4 active:scale-95"
                     >
-                        {isPending ? 'autenticando...' : 'entrar na conta'}
+                        {isPending ? 'processando...' : 'entrar na conta'}
                     </button>
                 </form>
             </div>

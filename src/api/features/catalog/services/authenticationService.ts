@@ -18,5 +18,9 @@ export const authenticationService = {
     login: async (credentials: LoginDTO): Promise<AuthResponse> => {
         const { data } = await apiClient.post<AuthResponse>('/Authentication/access', credentials);
         return data;
+    },
+    resetPassword: async (email: string): Promise<AuthResponse> => {
+        const { data } = await apiClient.post<AuthResponse>('/Authentication/reset-password', { email });
+        return data;
     }
 };
